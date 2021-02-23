@@ -9,6 +9,9 @@ import 'package:test_flutter_sdk_weather_app/widgets/detail_view.dart';
 import 'package:test_flutter_sdk_weather_app/widgets/temp_view.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
+  final locationWeather;
+  WeatherForecastScreen({this.locationWeather});
+
   @override
   _WeatherForecastScreenState createState() => _WeatherForecastScreenState();
 }
@@ -22,8 +25,9 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   void initState() {
     super.initState();
 
-    forecastObject =
-        WeatherApi().fetchWeatherForecastWithCity(cityName: _cityName);
+    if (widget.locationWeather != null) {
+      forecastObject = WeatherApi().fetchWeatherForecast();
+    }
 
     // forecastObject.then((weather) {
     //   print(weather.weather[0].main);
@@ -39,7 +43,11 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.my_location),
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              forecastObject = WeatherApi().fetchWeatherForecast();
+            });
+          },
         ),
         actions: <Widget>[
           IconButton(
@@ -47,17 +55,13 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
             onPressed: () async {
               var tappedName = await Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return CityScreen();
-                  },
-                ),
+                MaterialPageRoute(builder: (context) => CityScreen()),
               );
 
               if (tappedName != null) {
                 _cityName = tappedName;
                 forecastObject = WeatherApi()
-                    .fetchWeatherForecastWithCity(cityName: _cityName);
+                    .fetchWeatherForecast(cityName: _cityName, isCity: true);
               }
             },
           )
