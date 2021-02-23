@@ -3,6 +3,7 @@ import 'package:test_flutter_sdk_weather_app/API/weather_api.dart';
 import 'package:test_flutter_sdk_weather_app/models/weather_forecast_daily.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:test_flutter_sdk_weather_app/widgets/city_view.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class WeatherForecastScreen extends StatefulWidget {
 
 class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   Future<WeatherForecast> forecastObject;
-  String _cityName = 'London';
+  String _cityName = 'Kyiv';
 
   @override
   void initState() {
@@ -20,9 +21,9 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
     forecastObject =
         WeatherApi().fetchWeatherForecastWithCity(cityName: _cityName);
 
-    forecastObject.then((weather) {
-      print(weather.weather[0].main);
-    });
+    // forecastObject.then((weather) {
+    //   print(weather.weather[0].main);
+    // });
   }
 
   @override
@@ -49,9 +50,13 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
             future: forecastObject,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(
-                  'All good',
-                  style: Theme.of(context).textTheme.headline2,
+                return Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 50.0,
+                    ),
+                    CityView(snapshot: snapshot),
+                  ],
                 );
               } else {
                 return Center(

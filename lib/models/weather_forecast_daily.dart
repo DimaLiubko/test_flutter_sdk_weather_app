@@ -163,7 +163,7 @@ class Main {
 }
 
 class Wind {
-  double speed;
+  num speed;
   int deg;
 
   Wind({this.speed, this.deg});
@@ -175,7 +175,7 @@ class Wind {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['speed'] = this.speed.toDouble();
+    data['speed'] = this.speed;
     data['deg'] = this.deg;
     return data;
   }
