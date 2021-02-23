@@ -1,3 +1,5 @@
+import 'package:test_flutter_sdk_weather_app/utils/constans.dart';
+
 class WeatherForecast {
   Coord coord;
   List<Weather> weather;
@@ -122,6 +124,10 @@ class Weather {
     data['description'] = this.description;
     data['icon'] = this.icon;
     return data;
+  }
+
+  String getIconUrl() {
+    return Constants.WEATHER_IMAGES_URL + icon + '.png';
   }
 }
 
