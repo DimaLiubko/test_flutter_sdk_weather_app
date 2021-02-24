@@ -18,20 +18,15 @@ class WeatherForecastScreen extends StatefulWidget {
 
 class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   Future<WeatherForecast> forecastObject;
-  String _cityName = 'Kyiv';
-  // String _cityName;
+  String _cityName;
 
   @override
   void initState() {
     super.initState();
 
     if (widget.locationWeather != null) {
-      forecastObject = WeatherApi().fetchWeatherForecast();
+      forecastObject = Future.value(widget.locationWeather);
     }
-
-    // forecastObject.then((weather) {
-    //   print(weather.weather[0].main);
-    // });
   }
 
   @override
@@ -41,6 +36,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
         backgroundColor: Colors.black87,
         title: Text('OpenWeatherMap'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.my_location),
           onPressed: () {
@@ -59,9 +55,11 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
               );
 
               if (tappedName != null) {
-                _cityName = tappedName;
-                forecastObject = WeatherApi()
-                    .fetchWeatherForecast(cityName: _cityName, isCity: true);
+                setState(() {
+                  _cityName = tappedName;
+                  forecastObject = WeatherApi()
+                      .fetchWeatherForecast(cityName: _cityName, isCity: true);
+                });
               }
             },
           )
@@ -87,9 +85,10 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                 );
               } else {
                 return Center(
-                  child: SpinKitDoubleBounce(
-                    color: Colors.black87,
-                    size: 100,
+                  child: Text(
+                    'City not found\nPlease, enter correct city',
+                    style: TextStyle(fontSize: 25.0),
+                    textAlign: TextAlign.center,
                   ),
                 );
               }

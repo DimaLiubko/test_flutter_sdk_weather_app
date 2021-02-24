@@ -28,8 +28,8 @@ class WeatherApi {
       var queryParametrs = {
         'APPID': Constants.WEATHER_APP_ID,
         'units': 'metric',
-        'lat': location.latitude.toString,
-        'lon': location.longitude.toString,
+        'lat': location.latitude.toString(),
+        'lon': location.longitude.toString(),
       };
 
       parameters = queryParametrs;
@@ -47,7 +47,7 @@ class WeatherApi {
     if (respons.statusCode == 200) {
       return WeatherForecast.fromJson(json.decode(respons.body));
     } else {
-      throw Exception('Error response');
+      return Future.error('Error response');
     }
   }
 }

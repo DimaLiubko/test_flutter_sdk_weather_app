@@ -7,13 +7,13 @@ class Location {
   Future<void> getCurrentLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
+          timeLimit: Duration(seconds: 15),
           desiredAccuracy: LocationAccuracy.low);
-      // .timeout(Duration(seconds: 5));
 
       latitude = position.latitude;
       longitude = position.longitude;
     } catch (e) {
-      throw Exception('Error while getting current location: $e');
+      throw 'Error while getting current location: $e';
     }
   }
 }
