@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:test_flutter_sdk_weather_app/API/weather_api.dart';
 import 'package:test_flutter_sdk_weather_app/models/weather_forecast_daily.dart';
 
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:test_flutter_sdk_weather_app/screens/city_screen.dart';
 import 'package:test_flutter_sdk_weather_app/widgets/city_view.dart';
 import 'package:test_flutter_sdk_weather_app/widgets/detail_view.dart';
